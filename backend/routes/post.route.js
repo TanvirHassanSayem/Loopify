@@ -9,7 +9,16 @@ import {
 	likePost,
 } from "../controllers/post.controller.js";
 
+import { getPersonalizedPosts } from '../controllers/post.controller.js';
+
+
+
+
+
 const router = express.Router();
+
+
+router.get('/personalized', protectRoute, getPersonalizedPosts);
 
 router.get("/", protectRoute, getFeedPosts);
 router.post("/create", protectRoute, createPost);

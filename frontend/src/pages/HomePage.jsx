@@ -5,6 +5,9 @@ import PostCreation from "../components/PostCreation";
 import Post from "../components/Post";
 import { Users } from "lucide-react";
 import RecommendedUser from "../components/RecommendedUser";
+import React from 'react';
+import PersonalizedNewsFeed from '../components/PersonalizedNewsFeed';
+
 
 const HomePage = () => {
   // Fetching current user details
@@ -50,12 +53,33 @@ const HomePage = () => {
   }
 
   return (
+
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 px-4 sm:px-6 lg:px-8">
+      
       {/* Sidebar (only visible on larger screens) */}
       <div className="hidden lg:block lg:col-span-1">
-        <Sidebar user={authUser} />
-      </div>
+  {/* Sidebar Section */}
+  <Sidebar user={authUser} />
 
+  {/* Add margin to create space between Sidebar and Recommended Users */}
+  {recommendedUsers?.length > 0 && (
+    <div className="mt-8 col-span-1 lg:col-span-1 hidden lg:block">
+      {/* Stylish background with gradient, blur effect, and smooth transition */}
+      <div className="bg-gradient-to-r from-teal-400 via-indigo-500 to-purple-600 rounded-lg shadow-xl p-6 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:opacity-90 backdrop-blur-md">
+        <h2 className="font-semibold mb-6 text-white text-2xl tracking-wide">
+          People You May Know
+        </h2>
+        <div className="space-y-4">
+          {recommendedUsers?.map((user) => (
+            <RecommendedUser key={user._id} user={user} />
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
+      
       {/* Post Feed (center section) */}
       <div className="col-span-1 lg:col-span-2 order-first lg:order-none">
         <PostCreation user={authUser} />
@@ -75,24 +99,16 @@ const HomePage = () => {
           </div>
         )}
       </div>
-
+      
+      <div className="home-page">
+            {/* Other components like Sidebar and PostCreation */}
+            <PersonalizedNewsFeed />
+        </div> 
       {/* Recommended Users (right side, only on large screens) */}
-      {recommendedUsers?.length > 0 && (
-  <div className="col-span-1 lg:col-span-1 hidden lg:block">
-    {/* Stylish background with gradient, blur effect, and smooth transition */}
-    <div className="bg-gradient-to-r from-teal-400 via-indigo-500 to-purple-600 rounded-lg shadow-xl p-6 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:opacity-90 backdrop-blur-md">
-      <h2 className="font-semibold mb-6 text-white text-2xl tracking-wide">
-        People You May Know
-      </h2>
-      <div className="space-y-4">
-        {recommendedUsers?.map((user) => (
-          <RecommendedUser key={user._id} user={user} />
-        ))}
-      </div>
-    </div>
-  </div>
-)}
+     
 
+
+  
 
     </div>
   );

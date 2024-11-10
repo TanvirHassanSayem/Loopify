@@ -154,7 +154,7 @@ const Post = ({ post }) => {
         </div>
 
         {/* Post Content */}
-        <p className="mb-4 text-gray-900 dark:text-gray-200">{post.content}</p>
+        <p className="mb-4 text-gray-900 dark:text-gray-200 whitespace-pre-wrap">{post.content}</p>
         {post.image && <img src={post.image} alt="Post content" className="rounded-lg w-full object-cover mb-4" />}
 
         {/* Post Actions */}

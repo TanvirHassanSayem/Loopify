@@ -167,3 +167,21 @@ export const likePost = async (req, res) => {
 		res.status(500).json({ message: "Server error" });
 	}
 };
+
+export const getPersonalizedPosts = async (req, res) => {
+
+    try {
+        const userId = req.user._id; // Get the current user's ID
+		const posts =  await Post.find({ content: { $regex: 'javascript', $options: 'i' } }) .populate('author', 'name username profilePicture headline')
+          .sort({ createdAt: -1 });
+
+        // const posts = await Post.find({ author: { $in: [...req.user.connections, userId] } }) // Customize this query as needed
+        //     .populate('author', 'name username profilePicture headline')
+        //     .sort({ createdAt: -1 });
+
+        res.status(200).json(posts);
+    } catch (error) {
+        console.error("Error in getPersonalizedPosts controller:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
