@@ -135,7 +135,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ChatContextProvider from "./utils/ChatContext";
 import Chatting from "./components/Chatting";
 import React from 'react';
-import Navbar from './components/Navbar'; // Ensure the correct path
+// import Navbar from './components/layout/Navbar'; // Ensure the correct path
 import PollForm from './components/PollForm';
 import SurveyForm from './components/SurveyForm';
 import PollsPage from './pages/PollsPage';
@@ -143,7 +143,7 @@ import SurveysPage from './pages/SurveysPage';
 
 function App() {
 	const { data: authUser , isLoading } = useQuery({
-		queryKey: ["authUser "],
+		queryKey: ["authUser"],
 		queryFn: async () => {
 			try {
 				const res = await axiosInstance.get("/auth/me");
@@ -162,9 +162,9 @@ function App() {
 	return (
 		<ChatContextProvider>
 			<Chatting />
-			<Router>
+	 
 				<Layout>
-					<Navbar /> {/* Include Navbar here */}
+					{/* <Navbar />  */}
 					<Routes>
 						<Route path='/' element={authUser  ? <HomePage /> : <Navigate to={"/login"} />} />
 						<Route path='/signup' element={!authUser  ? <SignUpPage /> : <Navigate to={"/"} />} />
@@ -180,7 +180,7 @@ function App() {
 					</Routes>
 					<Toaster />
 				</Layout>
-			</Router>
+		 
 		</ChatContextProvider>
 	);
 }
