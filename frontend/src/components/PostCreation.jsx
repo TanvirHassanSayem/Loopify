@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
@@ -8,7 +8,6 @@ const PostCreation = ({ user }) => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const [isTyping, setIsTyping] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -30,13 +29,13 @@ const PostCreation = ({ user }) => {
   });
 
   const handlePostCreation = async () => {
-    if (content.trim() === "" && !image) return;
+    if (content.trim() === "" && !image) return; // Ensure content or image is required
 
     try {
       const postData = { content };
       if (image) postData.image = await readFileAsDataURL(image);
 
-      // Preserve white spaces by sending the content as is
+      // Trigger the mutation to create a post
       createPostMutation(postData);
     } catch (error) {
       console.error("Error in handlePostCreation:", error);
@@ -68,19 +67,6 @@ const PostCreation = ({ user }) => {
     });
   };
 
-  // Auto-save functionality with debounce
-  useEffect(() => {
-    if (!content && !image) return;
-
-    setIsTyping(true);
-    const debounceTimer = setTimeout(() => {
-      handlePostCreation();
-      setIsTyping(false);
-    }, 1000); // Adjust delay time as needed
-
-    return () => clearTimeout(debounceTimer);
-  }, [content, image]);
-
   return (
     <div className="bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 rounded-xl shadow-2xl p-6 transform hover:scale-105 transition-transform duration-500 ease-in-out">
       <div className="flex items-start space-x-4">
@@ -92,7 +78,7 @@ const PostCreation = ({ user }) => {
         <textarea
           placeholder="What's on your mind?"
           className="w-full p-5 rounded-xl bg-white shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-600 text-gray-800 font-medium transition-all duration-300 min-h-[120px] resize-none"
-          style={{ whiteSpace: "pre-wrap" }} // Ensures white spaces are kept
+          style={{ whiteSpace: "pre-wrap" }}
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
@@ -125,7 +111,7 @@ const PostCreation = ({ user }) => {
             isPending ? "cursor-not-allowed opacity-70" : "hover:scale-105"
           }`}
           onClick={handlePostCreation}
-          disabled={isPending || isTyping}
+          disabled={isPending}
         >
           {isPending ? <Loader className="animate-spin" size={20} /> : "Share"}
         </button>

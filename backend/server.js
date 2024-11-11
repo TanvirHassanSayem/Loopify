@@ -13,6 +13,9 @@ import connectionRoutes from "./routes/connection.route.js";
 
 import { connectDB } from "./lib/db.js";
 
+import pollRoutes from './routes/poll.route.js';
+import surveyRoutes from './routes/survey.route.js';
+
 dotenv.config();
 
 const app = express();
@@ -37,6 +40,8 @@ app.use("/api/v1/chats", chatsRoutes);
 app.use("/api/v1/posts", postRoutes);
 app.use("/api/v1/notifications", notificationRoutes);
 app.use("/api/v1/connections", connectionRoutes);
+app.use('/api/v1/polls', pollRoutes);
+app.use('/api/v1/surveys', surveyRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));

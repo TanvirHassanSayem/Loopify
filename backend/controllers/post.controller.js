@@ -169,15 +169,22 @@ export const likePost = async (req, res) => {
 };
 
 export const getPersonalizedPosts = async (req, res) => {
-
     try {
         const userId = req.user._id; // Get the current user's ID
-		const posts =  await Post.find({ content: { $regex: 'javascript', $options: 'i' } }) .populate('author', 'name username profilePicture headline')
-          .sort({ createdAt: -1 });
+        const userSkills = req.user.skills; // Get the user's skills
 
-        // const posts = await Post.find({ author: { $in: [...req.user.connections, userId] } }) // Customize this query as needed
-        //     .populate('author', 'name username profilePicture headline')
-        //     .sort({ createdAt: -1 });
+        // Create a regex pattern for each skill to search in post content
+        const skillRegex = userSkills.map(skill => new RegExp(skill, 'i')); // 'i' for case-insensitive
+
+        // Create a query that searches for posts containing any of the user's skills
+        const posts = await Post.find({
+            $or: [
+                { content: { $regex: 'javascript', $options: 'i' } }, // Include javascript posts
+                { content: { $in: skillRegex } } // Include posts that match user's skills
+            ]
+        })
+        .populate('author', 'name username profilePicture headline')
+        .sort({ createdAt: -1 });
 
         res.status(200).json(posts);
     } catch (error) {
