@@ -1,8 +1,3 @@
-<h1 align="center">Linkedin Clone ✨</h1>
-
-
-About This Course:
-
 -   🚀 Project Setup
 -   🗄️ MongoDB Integration
 -   💳 Stripe Payment Setup
@@ -19,38 +14,11 @@ About This Course:
 -   📰 News Feed Algorithm
 -   ⌛ And a lot more...
 
-### Setup .env file
-
-```bash
-PORT=5000
-MONGO_URI=<your_mongo_uri>
-
-JWT_SECRET=<yourverystrongsecret>
-
-NODE_ENV=development
-
-MAILTRAP_TOKEN=<your_mailtrap_token>
-EMAIL_FROM=mailtrap@demomailtrap.com
-EMAIL_FROM_NAME=<Your_Name>
-
-CLOUDINARY_API_KEY=<your_cloudinary_api_key>
-CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
-CLOUDINARY_CLOUD_NAME=<your_cloudinary_cloud_name>
-
-CLIENT_URL=http://localhost:5173
-```
-
-### Run this app locally
-
-```shell
-npm run build
-```
-
-### Start the app
-
-```shell
-npm run start
-```
-
-
-npm install react-toastify
+Hamza
+segigag743@operades.com
+Mizan27
+cikey62520@evnft.com
+Sayem231
+b/6VyS-M#
+ShahinBD2244
+sandts123451@gmail.com
