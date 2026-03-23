@@ -14,11 +14,4 @@
 -   📰 News Feed Algorithm
 -   ⌛ And a lot more...
 
-Hamza
-segigag743@operades.com
-Mizan27
-cikey62520@evnft.com
-Sayem231
-b/6VyS-M#
-ShahinBD2244
-sandts123451@gmail.com
+
